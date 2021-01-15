@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,9 +24,10 @@ public class Produto implements Serializable {
 	private String nome;
 	private Double preco;
 	
+	@JsonBackReference
 	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA", 
-		joinColumns = @JoinColumn(name = "produto_id"), 
+	@JoinTable(name = "PRODUTO_CATEGORIA",
+		joinColumns = @JoinColumn(name = "produto_id"),
 		inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
 	private List<Categoria> categorias = new ArrayList<>();
@@ -67,11 +70,11 @@ public class Produto implements Serializable {
 	public List<Categoria> getCategorias() {
 		return categorias;
 	}
-
+	
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
